@@ -70,16 +70,16 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     }
                 }
 
-                lblResuX = new JLabel("Resultado para x:");
+                lblResuX = new JLabel("x =");
                 lblResuX.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuX.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuX.setBounds(100, 120, 200, 30);
+                lblResuX.setBounds(100, 120, 300, 30);
                 mainPanel.add(lblResuX);
 
-                lblResuY = new JLabel("Resultado para y:");
+                lblResuY = new JLabel("y = ");
                 lblResuY.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuY.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuY.setBounds(100, 160, 200, 30);
+                lblResuY.setBounds(100, 160, 300, 30);
                 mainPanel.add(lblResuY);
 
                 JButton btnSolve2x2 = new JButton("Resolver 2x2");
@@ -87,16 +87,32 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         try {
                             double[][] coef = new double[2][3];
+                            boolean validInput = true;
+
                             for (int i = 0; i < 2; i++) {
                                 for (int j = 0; j < 3; j++) {
-                                    coef[i][j] = Double.parseDouble(txtCoef2x2[i][j].getText());
+                                    try {
+                                        coef[i][j] = Double.parseDouble(txtCoef2x2[i][j].getText());
+                                    } catch (NumberFormatException ex) {
+                                        validInput = false;
+                                        lblResuX.setText("Error: Entrada no válida en campo [" + (i+1) + "][" + (j+1) + "]");
+                                        lblResuY.setText("");
+                                    }
                                 }
                             }
-                            String[] resultados = SistemasEcuaciones.resolverSistema2x2(coef).split(",");
-                            lblResuX.setText("Resultado para x: " + resultados[0]);
-                            lblResuY.setText("Resultado para y: " + resultados[1]);
-                        } catch (NumberFormatException ex) {
-                            lblResuX.setText("Error: Entrada no válida");
+
+                            if (validInput) {
+                                double[] resultados = SistemasEcuaciones.resolverSistema2x2(coef);
+                                if (resultados != null) {
+                                    lblResuX.setText("x = " + redondear(resultados[0]));
+                                    lblResuY.setText("y = " + redondear(resultados[1]));
+                                } else {
+                                    lblResuX.setText("No tiene solución única");
+                                    lblResuY.setText("");
+                                }
+                            }
+                        } catch (Exception ex) {
+                            lblResuX.setText("Error: " + ex.getMessage());
                             lblResuY.setText("");
                         }
                     }
@@ -124,22 +140,22 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     }
                 }
 
-                lblResuX = new JLabel("Resultado para x:");
+                lblResuX = new JLabel("x =");
                 lblResuX.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuX.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuX.setBounds(100, 120, 200, 30);
+                lblResuX.setBounds(170, 40, 300, 30);
                 mainPanel.add(lblResuX);
 
-                lblResuY = new JLabel("Resultado para y:");
+                lblResuY = new JLabel("y =");
                 lblResuY.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuY.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuY.setBounds(100, 160, 200, 30);
+                lblResuY.setBounds(170, 80, 300, 30);
                 mainPanel.add(lblResuY);
 
-                lblResuZ = new JLabel("Resultado para z:");
+                lblResuZ = new JLabel("z =");
                 lblResuZ.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuZ.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuZ.setBounds(100, 200, 200, 30);
+                lblResuZ.setBounds(170, 120, 300, 30);
                 mainPanel.add(lblResuZ);
 
                 JButton btnSolve3x3 = new JButton("Resolver 3x3");
@@ -147,23 +163,41 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         try {
                             double[][] coef = new double[3][4];
+                            boolean validInput = true;
+
                             for (int i = 0; i < 3; i++) {
                                 for (int j = 0; j < 4; j++) {
-                                    coef[i][j] = Double.parseDouble(txtCoef3x3[i][j].getText());
+                                    try {
+                                        coef[i][j] = Double.parseDouble(txtCoef3x3[i][j].getText());
+                                    } catch (NumberFormatException ex) {
+                                        validInput = false;
+                                        lblResuX.setText("Error: Entrada no válida en campo [" + (i+1) + "][" + (j+1) + "]");
+                                        lblResuY.setText("");
+                                        lblResuZ.setText("");
+                                    }
                                 }
                             }
-                            String[] resultados = SistemasEcuaciones.resolverSistema3x3(coef).split(",");
-                            lblResuX.setText("Resultado para x: " + resultados[0]);
-                            lblResuY.setText("Resultado para y: " + resultados[1]);
-                            lblResuZ.setText("Resultado para z: " + resultados[2]);
-                        } catch (NumberFormatException ex) {
-                            lblResuX.setText("Error: Entrada no válida");
+
+                            if (validInput) {
+                                double[] resultados = SistemasEcuaciones.resolverSistema3x3(coef);
+                                if (resultados != null) {
+                                    lblResuX.setText("x = " + redondear(resultados[0]));
+                                    lblResuY.setText("y = " + redondear(resultados[1]));
+                                    lblResuZ.setText("z = " + redondear(resultados[2]));
+                                } else {
+                                    lblResuX.setText("No tiene solución única");
+                                    lblResuY.setText("");
+                                    lblResuZ.setText("");
+                                }
+                            }
+                        } catch (Exception ex) {
+                            lblResuX.setText("Error: " + ex.getMessage());
                             lblResuY.setText("");
                             lblResuZ.setText("");
                         }
                     }
                 });
-                btnSolve3x3.setBounds(200, 240, 150, 30);
+                btnSolve3x3.setBounds(300, 165, 150, 30);
                 mainPanel.add(btnSolve3x3);
 
                 revalidate();
@@ -171,4 +205,9 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
             }
         });
     }
+
+    private String redondear(double valor) {
+        return String.format("%.2f", Math.round(valor * 100.0) / 100.0);
+    }
 }
+
