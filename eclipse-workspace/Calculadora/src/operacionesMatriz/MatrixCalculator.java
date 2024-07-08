@@ -29,7 +29,6 @@ public class MatrixCalculator extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-//				MatrixCalculator.this.setVisible(true);
 			}
 		});
 		btnBack.setBounds(22, 260, 117, 29);
@@ -163,7 +162,7 @@ public class MatrixCalculator extends JFrame {
 		btnClean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CalculateCleanMatrizButton cleanScreen = new CalculateCleanMatrizButton();
-				cleanScreen.cleanMatriz(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this);
+				cleanScreen.cleanMatriz(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, errorLabel);
 				textFieldMatriz1 = null;
 				textFieldMatriz2 = null;
 				textFieldMatrizResultado = null;

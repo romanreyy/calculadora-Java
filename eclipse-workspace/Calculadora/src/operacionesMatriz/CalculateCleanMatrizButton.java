@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 public class CalculateCleanMatrizButton {
 
 	public void calculateButton(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JComboBox<String> optionsOperations, JLabel errorLabel) {
+		clearError(errorLabel);
+		
 		if (textFieldMatriz1 == null || textFieldMatriz2 == null) {
             return;
         }  
@@ -106,7 +108,6 @@ public class CalculateCleanMatrizButton {
         }
         
         if ("Division (/)".equals(selectedOption)) {
-            // Implementar una aproximación de división de matrices sin inversa ni determinante
             if (filas2 != columnas2) {
             	errorLabel.setText("Para dividir matrices, la matriz 2 debe ser cuadrada.");
                 return;
@@ -147,7 +148,7 @@ public class CalculateCleanMatrizButton {
                     double valorResultado = 0;
                     for (int k = 0; k < columnas1; k++) {
                         double valor1 = Double.parseDouble(textFieldMatriz1[i][k].getText());
-                        double valor2 = matriz2[j][k]; // Usamos la transpuesta de matriz2
+                        double valor2 = matriz2[j][k];
                         valorResultado += valor1 * valor2 / sumaElementos;
                     }
                     textFieldMatrizResultado[i][j].setText(String.valueOf(valorResultado));
@@ -159,7 +160,7 @@ public class CalculateCleanMatrizButton {
         frame.repaint();
     }
 	
-	public void cleanMatriz(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame) {
+	public void cleanMatriz(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JLabel errorLabel) {
 		
 		if (textFieldMatriz1 != null) {
 			for (int i=0; i<textFieldMatriz1.length; i++) {
@@ -180,16 +181,26 @@ public class CalculateCleanMatrizButton {
 		}
            
 		if (textFieldMatrizResultado != null) {
-			for (int i=0; i<textFieldMatrizResultado.length; i++) {
-				for (int j=0; j<textFieldMatrizResultado[i].length; j++) {
+			for (int i=0; i<textFieldMatrizResultado[i].length; i++) {
+				for (int j=0; j<textFieldMatrizResultado[j].length; j++) {
 					frame.getContentPane().remove(textFieldMatrizResultado[i][j]);
 				}
 			}
 			textFieldMatrizResultado = null;
 		}
+		
+		if(errorLabel != null) {
+			frame.getContentPane().remove(errorLabel);
+		}
 
 		frame.revalidate();
 		frame.repaint();
 	}
+	
+	 private void clearError(JLabel errorLabel) {
+	        if (errorLabel != null) {
+	            errorLabel.setText("");
+	        }
+	    }
 }
 
