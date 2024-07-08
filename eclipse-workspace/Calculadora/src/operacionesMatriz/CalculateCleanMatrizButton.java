@@ -3,10 +3,11 @@ package operacionesMatriz;
 import javax.swing.JTextField;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class CalculateCleanMatrizButton {
 
-	public void calculateButton(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JComboBox<String> optionsOperations) {
+	public void calculateButton(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JComboBox<String> optionsOperations, JLabel errorLabel) {
 		if (textFieldMatriz1 == null || textFieldMatriz2 == null) {
             return;
         }  
@@ -28,7 +29,7 @@ public class CalculateCleanMatrizButton {
 
         if ("Suma (+)".equals(selectedOption)) {
             if (filas1 != filas2 || columnas1 != columnas2) {
-                System.out.print("Las matrices deben ser de igual tamaño");
+            	errorLabel.setText("Las matrices deben ser de igual tamaño para sumar.");
                 return;
             }
             textFieldMatrizResultado = new JTextField[filas1][columnas1];
@@ -53,7 +54,7 @@ public class CalculateCleanMatrizButton {
 
         if ("Resta (-)".equals(selectedOption)) {
             if (filas1 != filas2 || columnas1 != columnas2) {
-                System.out.print("Las matrices deben ser de igual tamaño");
+            	errorLabel.setText("Las matrices deben ser de igual tamaño para restar.");
                 return;
             }
             textFieldMatrizResultado = new JTextField[filas1][columnas1];
@@ -107,7 +108,7 @@ public class CalculateCleanMatrizButton {
         if ("Division (/)".equals(selectedOption)) {
             // Implementar una aproximación de división de matrices sin inversa ni determinante
             if (filas2 != columnas2) {
-                System.out.print("Para dividir matrices, la matriz 2 debe ser cuadrada");
+            	errorLabel.setText("Para dividir matrices, la matriz 2 debe ser cuadrada.");
                 return;
             }
 

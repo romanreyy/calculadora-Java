@@ -84,6 +84,10 @@ public class MatrixCalculator extends JFrame {
 		JButton btnClean = new JButton("limpiar");
 		btnClean.setBounds(500, 260, 80, 29);
 		getContentPane().add(btnClean);
+	
+        JLabel errorLabel = new JLabel("");
+        errorLabel.setBounds(180, 200, 500, 35);
+        getContentPane().add(errorLabel);
 
 		matriz1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -153,7 +157,7 @@ public class MatrixCalculator extends JFrame {
 		btnIgual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CalculateCleanMatrizButton calculateMatrizButton = new CalculateCleanMatrizButton();
-				calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations);
+				calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations, errorLabel);
 			}
 		});
 		btnClean.addActionListener(new ActionListener() {
