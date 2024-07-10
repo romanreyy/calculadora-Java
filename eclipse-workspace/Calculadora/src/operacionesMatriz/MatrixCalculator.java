@@ -84,10 +84,6 @@ public class MatrixCalculator extends JFrame {
 		btnClean.setBounds(500, 260, 80, 29);
 		getContentPane().add(btnClean);
 	
-        JLabel errorLabel = new JLabel("");
-        errorLabel.setBounds(180, 200, 500, 35);
-        getContentPane().add(errorLabel);
-
 		matriz1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String seleccion = (String) matriz1.getSelectedItem();
@@ -156,13 +152,13 @@ public class MatrixCalculator extends JFrame {
 		btnIgual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CalculateCleanMatrizButton calculateMatrizButton = new CalculateCleanMatrizButton();
-				calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations, errorLabel);
+				calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations);
 			}
 		});
 		btnClean.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CalculateCleanMatrizButton cleanScreen = new CalculateCleanMatrizButton();
-				cleanScreen.cleanMatriz(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, errorLabel);
+				cleanScreen.cleanMatriz(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this);
 				textFieldMatriz1 = null;
 				textFieldMatriz2 = null;
 				textFieldMatrizResultado = null;

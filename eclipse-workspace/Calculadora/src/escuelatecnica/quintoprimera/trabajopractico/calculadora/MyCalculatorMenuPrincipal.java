@@ -55,7 +55,7 @@ public class MyCalculatorMenuPrincipal {
 		JButton btnThree = this.createNewButton("Calculos de Vectores", 6, 130, 268, 50);
 		btnThree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MyCalculatorVectores addScreen = new MyCalculatorVectores(100, 100, 643, 346);
+				MyCalculatorVectores addScreen = new MyCalculatorVectores();
 				addScreen.setVisible(true);
 			}
 		});
