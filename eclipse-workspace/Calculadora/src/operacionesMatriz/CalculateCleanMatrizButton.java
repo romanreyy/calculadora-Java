@@ -45,9 +45,9 @@ public class CalculateCleanMatrizButton {
                     textFieldMatrizResultado[i][j].setEditable(false);
                     textFieldMatrizResultado[i][j].setHorizontalAlignment(JTextField.CENTER);
                     frame.getContentPane().add(textFieldMatrizResultado[i][j]);
-                    int valor1 = Integer.parseInt(textFieldMatriz1[i][j].getText());
-                    int valor2 = Integer.parseInt(textFieldMatriz2[i][j].getText());
-                    int suma = valor1 + valor2;
+                    float valor1 = Float.parseFloat(textFieldMatriz1[i][j].getText());
+                    float valor2 = Float.parseFloat(textFieldMatriz2[i][j].getText());
+                    float suma = valor1 + valor2;
                     textFieldMatrizResultado[i][j].setText(String.valueOf(suma));
                 }
             }
@@ -70,9 +70,9 @@ public class CalculateCleanMatrizButton {
                     textFieldMatrizResultado[i][j].setEditable(false);
                     textFieldMatrizResultado[i][j].setHorizontalAlignment(JTextField.CENTER);
                     frame.getContentPane().add(textFieldMatrizResultado[i][j]);
-                    int valor1 = Integer.parseInt(textFieldMatriz1[i][j].getText());
-                    int valor2 = Integer.parseInt(textFieldMatriz2[i][j].getText());
-                    int resta = valor1 - valor2;
+                    float valor1 = Float.parseFloat(textFieldMatriz1[i][j].getText());
+                    float valor2 = Float.parseFloat(textFieldMatriz2[i][j].getText());
+                    float resta = valor1 - valor2;
                     textFieldMatrizResultado[i][j].setText(String.valueOf(resta));
                 }
             }
@@ -97,8 +97,8 @@ public class CalculateCleanMatrizButton {
                     frame.getContentPane().add(textFieldMatrizResultado[i][j]);
                     int valorResultado = 0;
                     for (int k = 0; k < columnas1; k++) {
-                        int valor1 = Integer.parseInt(textFieldMatriz1[i][k].getText());
-                        int valor2 = Integer.parseInt(textFieldMatriz2[k][j].getText());
+                    	float valor1 = Float.parseFloat(textFieldMatriz1[i][j].getText());
+                        float valor2 = Float.parseFloat(textFieldMatriz2[i][j].getText());
                         valorResultado += valor1 * valor2;
                     }
                     textFieldMatrizResultado[i][j].setText(String.valueOf(valorResultado));
@@ -146,8 +146,8 @@ public class CalculateCleanMatrizButton {
                     frame.getContentPane().add(textFieldMatrizResultado[i][j]);
                     double valorResultado = 0;
                     for (int k = 0; k < columnas1; k++) {
-                        double valor1 = Double.parseDouble(textFieldMatriz1[i][k].getText());
-                        double valor2 = matriz2[j][k];
+                        float valor1 = Float.parseFloat(textFieldMatriz1[i][k].getText());
+                        float valor2 = (float) matriz2[j][k];
                         valorResultado += valor1 * valor2 / sumaElementos;
                     }
                     textFieldMatrizResultado[i][j].setText(String.valueOf(valorResultado));
@@ -159,36 +159,35 @@ public class CalculateCleanMatrizButton {
         frame.repaint();
     }
 	
-	public void cleanMatriz(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame) {
-		
-		if (textFieldMatriz1 != null) {
-			for (int i=0; i<textFieldMatriz1.length; i++) {
-				for(int j=0; j<textFieldMatriz1[i].length; j++) {
-                	frame.getContentPane().remove(textFieldMatriz1[i][j]);
-				}
-			}
-			textFieldMatriz1 = null;
-		}
-           
-		if (textFieldMatriz2 != null) {
-			for (int i=0; i<textFieldMatriz2.length; i++) {
-				for (int j=0; j<textFieldMatriz2[i].length; j++) {
-					frame.getContentPane().remove(textFieldMatriz2[i][j]);
-				}
-			}
-			textFieldMatriz2 = null;
-		}
-           
-		if (textFieldMatrizResultado != null) {
-			for (int i=0; i<textFieldMatrizResultado[i].length; i++) {
-				for (int j=0; j<textFieldMatrizResultado[j].length; j++) {
-					frame.getContentPane().remove(textFieldMatrizResultado[i][j]);
-				}
-			}
-			textFieldMatrizResultado = null;
-		}
-	}
+	public void cleanMatriz (JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame) {
+        if (textFieldMatriz1 != null) {
+            for (int i = 0; i < textFieldMatriz1.length; i++) {
+                for (int j = 0; j < textFieldMatriz1[i].length; j++) {
+                    frame.getContentPane().remove(textFieldMatriz1[i][j]);
+                }
+            }
+        }
+
+        if (textFieldMatriz2 != null) {
+            for (int i = 0; i < textFieldMatriz2.length; i++) {
+                for (int j = 0; j < textFieldMatriz2[i].length; j++) {
+                    frame.getContentPane().remove(textFieldMatriz2[i][j]);
+                }
+            }
+        }
+
+        if (textFieldMatrizResultado != null) {
+            for (int i = 0; i < textFieldMatrizResultado.length; i++) {
+                for (int j = 0; j < textFieldMatrizResultado[i].length; j++) {
+                    frame.getContentPane().remove(textFieldMatrizResultado[i][j]);
+                }
+            }
+        }
+
+        frame.revalidate();
+        frame.repaint();
 	
+	}
 	private void showError(String message) {
 	    JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}

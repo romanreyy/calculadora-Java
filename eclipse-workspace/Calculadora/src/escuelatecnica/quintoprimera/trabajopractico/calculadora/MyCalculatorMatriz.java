@@ -2,6 +2,7 @@ package escuelatecnica.quintoprimera.trabajopractico.calculadora;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,6 +34,7 @@ public class MyCalculatorMatriz extends JFrame{
 				dispose();
 			}
 		});
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBack.setBounds(22, 283, 117, 29);
 		getContentPane().add(btnBack);
 		
@@ -43,6 +45,7 @@ public class MyCalculatorMatriz extends JFrame{
 				matrixCalculator.setVisible(true);
 			}
 		});
+		btnOne.setFont(new Font("Arial", Font.BOLD, 15));
 		getContentPane().add(btnOne);
 		
 		JButton btnTwo = this.createNewButton("Multiplicación de escalar por una matriz", 6, 75, 268, 50);
@@ -52,6 +55,7 @@ public class MyCalculatorMatriz extends JFrame{
 				addScreen.setVisible(true);
 			}
 		});
+		btnTwo.setFont(new Font("Arial", Font.BOLD, 15));
 		getContentPane().add(btnTwo);
 		
 		JButton btnThree = this.createNewButton("Determinante de una matriz", 6, 130, 268, 50);
@@ -61,6 +65,7 @@ public class MyCalculatorMatriz extends JFrame{
 				addScreen.setVisible(true);
 			}
 		});
+		btnThree.setFont(new Font("Arial", Font.BOLD, 15));
 		getContentPane().add(btnThree);
 		
 		JButton btnFour = this.createNewButton("Inversa de una matriz", 6, 185, 268, 50);
@@ -70,6 +75,7 @@ public class MyCalculatorMatriz extends JFrame{
 				addScreen.setVisible(true);
 			}
 		});
+		btnFour.setFont(new Font("Arial", Font.BOLD, 15));
 		getContentPane().add(btnFour);
 		
 	}

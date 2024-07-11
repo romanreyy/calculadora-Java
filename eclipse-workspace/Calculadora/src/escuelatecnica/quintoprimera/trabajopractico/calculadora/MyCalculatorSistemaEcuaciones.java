@@ -25,7 +25,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
     private JLabel lblResuZ;
 
     public MyCalculatorSistemaEcuaciones(int i, int j, int width, int height) {
-        setBounds(i, j, width, height);
+    	setBounds(i, j, width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().setBackground(new Color(224, 255, 255));
@@ -36,6 +36,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                 dispose();
             }
         });
+        btnBack.setFont(new Font("Arial", Font.BOLD, 15));
         btnBack.setBounds(22, 230, 117, 29);
         getContentPane().add(btnBack);
 
@@ -118,6 +119,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     }
                 });
                 btnSolve2x2.setBounds(200, 200, 150, 30);
+                btnSolve2x2.setFont(new Font("Arial", Font.BOLD, 15));
                 mainPanel.add(btnSolve2x2);
 
                 revalidate();
@@ -198,6 +200,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                     }
                 });
                 btnSolve3x3.setBounds(300, 165, 150, 30);
+                btnSolve3x3.setFont(new Font("Arial", Font.BOLD, 15));
                 mainPanel.add(btnSolve3x3);
 
                 revalidate();

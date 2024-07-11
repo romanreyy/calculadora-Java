@@ -35,12 +35,13 @@ public class MyCalculatorMenuPrincipal {
     }
 
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 450, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("MyCalculator - Menu Principal");
-        frame.getContentPane().setBackground(new Color(224, 255, 255));
-        frame.setLayout(new GridLayout(1, 1));
+    	frame = new JFrame();
+    	frame.setBounds(100, 100, 450, 300);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setTitle("MyCalculator - Menu Principal");
+    	frame.getContentPane().setBackground(new Color(224, 255, 255));
+    	frame.setLayout(new GridLayout(1, 1));
+
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(224, 255, 255));

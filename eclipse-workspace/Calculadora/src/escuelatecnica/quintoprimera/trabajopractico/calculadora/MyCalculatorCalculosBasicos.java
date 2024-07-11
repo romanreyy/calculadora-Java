@@ -2,10 +2,10 @@ package escuelatecnica.quintoprimera.trabajopractico.calculadora;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,8 +25,8 @@ public class MyCalculatorCalculosBasicos extends JFrame {
     // Variables
     List<Double> numeros;
     List<String> operaciones;
-    boolean errorState; // Nueva variable para rastrear el estado de error
-    List<JButton> buttons; // Lista para almacenar todos los botones que se deben habilitar/deshabilitar
+    boolean errorState; 
+    List<JButton> buttons;
     
     public MyCalculatorCalculosBasicos() {
         numeros = new ArrayList<>();
@@ -42,6 +42,8 @@ public class MyCalculatorCalculosBasicos extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+
+        
 
         txtPantalla = new JTextField();
         txtPantalla.setEditable(false);  // Desactivar la edición manual
@@ -66,6 +68,7 @@ public class MyCalculatorCalculosBasicos extends JFrame {
 				dispose();
 			}
 		});
+		btnBack.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBack.setBounds(134, 294, 175, 47);
 		getContentPane().add(btnBack);
         
