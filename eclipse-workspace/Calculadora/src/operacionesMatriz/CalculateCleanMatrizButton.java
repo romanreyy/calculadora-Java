@@ -1,18 +1,13 @@
 package operacionesMatriz;
 
-import javax.swing.JTextField;
-import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
 
 public class CalculateCleanMatrizButton {
 
-	public void calculateButton(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JComboBox<String> optionsOperations) {
-		if (textFieldMatriz1 == null || textFieldMatriz2 == null) {
-            return;
+    public JTextField[][] calculateButton(JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame, JComboBox<String> optionsOperations) {
+        if (textFieldMatriz1 == null || textFieldMatriz2 == null) {
+            return null;
         }  
-
         int filas1 = textFieldMatriz1.length;
         int columnas1 = textFieldMatriz1[0].length;
         int filas2 = textFieldMatriz2.length;
@@ -31,7 +26,6 @@ public class CalculateCleanMatrizButton {
         if ("Suma (+)".equals(selectedOption)) {
             if (filas1 != filas2 || columnas1 != columnas2) {
             	showError("Las matrices deben ser iguales para ser sumadas.");
-                return;
             }
             textFieldMatrizResultado = new JTextField[filas1][columnas1];
             int x = 515;
@@ -56,7 +50,6 @@ public class CalculateCleanMatrizButton {
         if ("Resta (-)".equals(selectedOption)) {
             if (filas1 != filas2 || columnas1 != columnas2) {
             	showError("Las matrices deben ser de igual tamaño para restar.");
-                return;
             }
             textFieldMatrizResultado = new JTextField[filas1][columnas1];
             int x = 515;
@@ -81,7 +74,6 @@ public class CalculateCleanMatrizButton {
         if ("Multiplicacion (x)".equals(selectedOption)) {
             if (columnas1 != filas2) {
             	showError("Para multiplicar matrices, la cantidad de columnas en la matriz 1 debe ser igual a la cantidad de filas en la matriz 2.");
-                return;
             }
             textFieldMatrizResultado = new JTextField[filas1][columnas2]; // Dimensión correcta
             int x = 515;
@@ -109,7 +101,6 @@ public class CalculateCleanMatrizButton {
         if ("Division (/)".equals(selectedOption)) {
             if (filas2 != columnas2) {
             	showError("Para dividir matrices, la matriz 2 debe ser cuadrada.");
-                return;
             }
 
             double[][] matriz2 = new double[filas2][columnas2];
@@ -128,7 +119,6 @@ public class CalculateCleanMatrizButton {
 
             if (sumaElementos == 0) {
                 System.out.print("La matriz 2 tiene una suma de elementos igual a cero, no se puede dividir.");
-                return;
             }
 
             textFieldMatrizResultado = new JTextField[filas1][columnas2];
@@ -154,42 +144,22 @@ public class CalculateCleanMatrizButton {
                 }
             }
         }
-
-        frame.revalidate();
-        frame.repaint();
-    }
-	
-	public void cleanMatriz (JTextField[][] textFieldMatriz1, JTextField[][] textFieldMatriz2, JTextField[][] textFieldMatrizResultado, JFrame frame) {
-        if (textFieldMatriz1 != null) {
-            for (int i = 0; i < textFieldMatriz1.length; i++) {
-                for (int j = 0; j < textFieldMatriz1[i].length; j++) {
-                    frame.getContentPane().remove(textFieldMatriz1[i][j]);
-                }
-            }
-        }
-
-        if (textFieldMatriz2 != null) {
-            for (int i = 0; i < textFieldMatriz2.length; i++) {
-                for (int j = 0; j < textFieldMatriz2[i].length; j++) {
-                    frame.getContentPane().remove(textFieldMatriz2[i][j]);
-                }
-            }
-        }
-
         if (textFieldMatrizResultado != null) {
             for (int i = 0; i < textFieldMatrizResultado.length; i++) {
                 for (int j = 0; j < textFieldMatrizResultado[i].length; j++) {
-                    frame.getContentPane().remove(textFieldMatrizResultado[i][j]);
+                    frame.getContentPane().add(textFieldMatrizResultado[i][j]);
                 }
             }
         }
 
         frame.revalidate();
         frame.repaint();
-	
-	}
-	private void showError(String message) {
-	    JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-	}
+       
+        return textFieldMatrizResultado;
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
 

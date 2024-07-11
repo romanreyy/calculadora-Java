@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -25,7 +28,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
     private JLabel lblResuZ;
 
     public MyCalculatorSistemaEcuaciones(int i, int j, int width, int height) {
-    	setBounds(i, j, width, height);
+        setBounds(i, j, width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().setBackground(new Color(224, 255, 255));
@@ -37,7 +40,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
             }
         });
         btnBack.setFont(new Font("Arial", Font.BOLD, 15));
-        btnBack.setBounds(22, 230, 117, 29);
+        btnBack.setBounds(10, 240, 120, 40); // Ajustado el tamaño y la posición
         getContentPane().add(btnBack);
 
         JMenuBar menuBar = new JMenuBar();
@@ -52,7 +55,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
         menu.add(menuItem3x3);
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setBounds(10, 10, 565, 500);
+        mainPanel.setBounds(10, 10, 565, 400);
         getContentPane().add(mainPanel);
         mainPanel.setLayout(null);
 
@@ -62,11 +65,33 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                 mainPanel.revalidate();
                 mainPanel.repaint();
 
+                String[][] placeholders = {{"x1", "x2", "x3"}, {"y1", "y2", "y3"}};
                 txtCoef2x2 = new JTextField[2][3];
                 for (int i = 0; i < 2; i++) {
                     for (int j = 0; j < 3; j++) {
-                        txtCoef2x2[i][j] = new JTextField();
-                        txtCoef2x2[i][j].setBounds(50 + j * 60, 50 + i * 30, 50, 20);
+                        txtCoef2x2[i][j] = new JTextField(placeholders[i][j]);
+                        txtCoef2x2[i][j].setBounds(150 + j * 60, 20 + i * 30, 50, 20);
+                        txtCoef2x2[i][j].setForeground(Color.GRAY);
+                        txtCoef2x2[i][j].setHorizontalAlignment(JTextField.RIGHT);
+                        txtCoef2x2[i][j].addFocusListener(new FocusAdapter() {
+                            @Override
+                            public void focusGained(FocusEvent e) {
+                                JTextField source = (JTextField) e.getSource();
+                                if (source.getForeground().equals(Color.GRAY)) {
+                                    source.setText("");
+                                    source.setForeground(Color.BLACK);
+                                }
+                            }
+                            @Override
+                            public void focusLost(FocusEvent e) {
+                                JTextField source = (JTextField) e.getSource();
+                                if (source.getText().isEmpty()) {
+                                    source.setForeground(Color.GRAY);
+                                    source.setText(source.getName());
+                                }
+                            }
+                        });
+                        txtCoef2x2[i][j].setName(placeholders[i][j]);
                         mainPanel.add(txtCoef2x2[i][j]);
                     }
                 }
@@ -74,13 +99,13 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                 lblResuX = new JLabel("x =");
                 lblResuX.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuX.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuX.setBounds(100, 120, 300, 30);
+                lblResuX.setBounds(200, 80, 150, 30);
                 mainPanel.add(lblResuX);
 
                 lblResuY = new JLabel("y = ");
                 lblResuY.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuY.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuY.setBounds(100, 160, 300, 30);
+                lblResuY.setBounds(200, 120, 150, 30);
                 mainPanel.add(lblResuY);
 
                 JButton btnSolve2x2 = new JButton("Resolver 2x2");
@@ -118,7 +143,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                         }
                     }
                 });
-                btnSolve2x2.setBounds(200, 200, 150, 30);
+                btnSolve2x2.setBounds(210, 160, 150, 30);
                 btnSolve2x2.setFont(new Font("Arial", Font.BOLD, 15));
                 mainPanel.add(btnSolve2x2);
 
@@ -133,31 +158,52 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                 mainPanel.revalidate();
                 mainPanel.repaint();
 
+                String[][] placeholders = {{"x1", "x2", "x3", "x4"}, {"y1", "y2", "y3", "y4"}, {"z1", "z2", "z3", "z4"}};
                 txtCoef3x3 = new JTextField[3][4];
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 4; j++) {
-                        txtCoef3x3[i][j] = new JTextField();
-                        txtCoef3x3[i][j].setBounds(50 + j * 60, 50 + i * 30, 50, 20);
+                        txtCoef3x3[i][j] = new JTextField(placeholders[i][j]);
+                        txtCoef3x3[i][j].setBounds(120 + j * 60, 20 + i * 30, 50, 20);
+                        txtCoef3x3[i][j].setForeground(Color.GRAY);
+                        txtCoef3x3[i][j].setHorizontalAlignment(JTextField.RIGHT);
+                        txtCoef3x3[i][j].addFocusListener(new FocusAdapter() {
+                       
+                            public void focusGained(FocusEvent e) {
+                                JTextField source = (JTextField) e.getSource();
+                                if (source.getForeground().equals(Color.GRAY)) {
+                                    source.setText("");
+                                    source.setForeground(Color.BLACK);
+                                }
+                            }
+                     
+                            public void focusLost(FocusEvent e) {
+                                JTextField source = (JTextField) e.getSource();
+                                if (source.getText().isEmpty()) {
+                                    source.setForeground(Color.GRAY);
+                                    source.setText(source.getName());
+                                }
+                            }
+                        });
+                        txtCoef3x3[i][j].setName(placeholders[i][j]);
                         mainPanel.add(txtCoef3x3[i][j]);
                     }
                 }
-
                 lblResuX = new JLabel("x =");
                 lblResuX.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuX.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuX.setBounds(170, 40, 300, 30);
+                lblResuX.setBounds(200, 100, 150, 30);
                 mainPanel.add(lblResuX);
 
                 lblResuY = new JLabel("y =");
                 lblResuY.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuY.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuY.setBounds(170, 80, 300, 30);
+                lblResuY.setBounds(200, 140, 150, 30);
                 mainPanel.add(lblResuY);
 
                 lblResuZ = new JLabel("z =");
                 lblResuZ.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 lblResuZ.setHorizontalAlignment(SwingConstants.CENTER);
-                lblResuZ.setBounds(170, 120, 300, 30);
+                lblResuZ.setBounds(200, 180, 150, 30);
                 mainPanel.add(lblResuZ);
 
                 JButton btnSolve3x3 = new JButton("Resolver 3x3");
@@ -199,7 +245,7 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
                         }
                     }
                 });
-                btnSolve3x3.setBounds(300, 165, 150, 30);
+                btnSolve3x3.setBounds(200, 220, 180, 40);
                 btnSolve3x3.setFont(new Font("Arial", Font.BOLD, 15));
                 mainPanel.add(btnSolve3x3);
 
@@ -213,4 +259,3 @@ public class MyCalculatorSistemaEcuaciones extends JFrame {
         return String.format("%.2f", Math.round(valor * 100.0) / 100.0);
     }
 }
-

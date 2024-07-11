@@ -51,7 +51,7 @@ public class MyCalculatorMatriz extends JFrame{
 		JButton btnTwo = this.createNewButton("Multiplicación de escalar por una matriz", 6, 75, 268, 50);
 		btnTwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EscalarPorMatriz addScreen = new EscalarPorMatriz(100, 100, 643, 346);
+				EscalarPorMatriz addScreen = new EscalarPorMatriz();
 				addScreen.setVisible(true);
 			}
 		});

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Determinante extends JFrame {
@@ -105,56 +106,80 @@ public class Determinante extends JFrame {
             }
         });
 	}
-		private void calculateAndDisplayDeterminant() {
-	        int rows = textFieldMatriz1.length;
-	        int cols = textFieldMatriz1[0].length;
+	public void calculateAndDisplayDeterminant() {
+        if (textFieldMatriz1 == null || textFieldMatriz1.length == 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese una matriz.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int rows = textFieldMatriz1.length;
+        int cols = textFieldMatriz1[0].length;
 
-	        if (rows != cols) {
-	            // La matriz no es cuadrada, no se puede calcular el determinante
-	            return;
-	        }
+        if (rows != cols) {
+            JOptionPane.showMessageDialog(this, "La matriz no es cuadrada, no se puede calcular el determinante.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-	        double[][] matriz = new double[rows][cols];
-	        for (int i = 0; i < rows; i++) {
-	            for (int j = 0; j < cols; j++) {
-	                matriz[i][j] = Double.parseDouble(textFieldMatriz1[i][j].getText());
-	            }
-	        }
+        double[][] matriz = new double[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                try {
+                    matriz[i][j] = Double.parseDouble(textFieldMatriz1[i][j].getText());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Todos los campos deben contener números.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        }
 
-	        double det = 0;
-	        if (rows == 1) {
-	            det = matriz[0][0];
-	        } else if (rows == 2) {
-	            det = determinante2x2(matriz);
-	        } else if (rows == 3) {
-	            det = determinante3x3(matriz);
-	        }
+        double det = 0;
+        if (rows == 1) {
+            det = matriz[0][0];
+        } else if (rows == 2) {
+            det = determinante2x2(matriz);
+        } else { // Para matrices de más de 2x2
+            det = calcularDeterminanteGeneral(matriz);
+        }
 
-	        if (textFieldDeterminante != null) {
-	            getContentPane().remove(textFieldDeterminante);
-	        }
+        if (textFieldDeterminante != null) {
+            getContentPane().remove(textFieldDeterminante);
+        }
 
-	        textFieldDeterminante = new JTextField(String.format("Det: %.2f", det));
-	        textFieldDeterminante.setBounds(360, 130, 30, 30);
-	        textFieldDeterminante.setEditable(false);
-	        getContentPane().add(textFieldDeterminante);
+        textFieldDeterminante = new JTextField(String.format("Det: %.2f", det));
+        textFieldDeterminante.setBounds(350, 140, 200, 30); // Ajuste el ancho para mostrar el resultado correctamente
+        textFieldDeterminante.setEditable(false);
+        getContentPane().add(textFieldDeterminante);
 
-	        revalidate();
-	        repaint();
-	    }
+        revalidate();
+        repaint();
+    }
 
-	    private double determinante2x2(double[][] matriz) {
-	        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
-	    }
+    private double determinante2x2(double[][] matriz) {
+        return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
+    }
 
-	    private double determinante3x3(double[][] matriz) {
-	        return matriz[0][0] * (matriz[1][1] * matriz[2][2] - matriz[1][2] * matriz[2][1]) -
-	               matriz[0][1] * (matriz[1][0] * matriz[2][2] - matriz[1][2] * matriz[2][0]) +
-	               matriz[0][2] * (matriz[1][0] * matriz[2][1] - matriz[1][1] * matriz[2][0]);
-	    }
+    private double calcularDeterminanteGeneral(double[][] matriz) {
+        int n = matriz.length;
+        double det = 0;
+        for (int i = 0; i < n; i++) {
+            det += ((i % 2 == 0 ? 1 : -1) * matriz[0][i] * calcularDeterminanteSubmatriz(matriz, 1, i, n));
+        }
+        return det;
+    }
 
-	    public static void main(String[] args) {
-	        Determinante frame = new Determinante();
-	        frame.setVisible(true);
-	    }
-	}
+    private double calcularDeterminanteSubmatriz(double[][] matriz, int startRow, int startCol, int size) {
+        double det = 0;
+        int n = size - 1;
+        for (int i = startRow; i < startRow + n; i++) {
+            for (int j = startCol; j < startCol + n; j++) {
+                det += ((i + j) % 2 == 0 ? 1 : -1) * matriz[i][j] * calcularDeterminanteSubmatriz(matriz, i - startRow + 1, j - startCol + 1, n);
+            }
+        }
+        return det;
+    }
+
+    public static void main(String[] args) {
+        Determinante frame = new Determinante();
+        frame.setVisible(true);
+    }
+}

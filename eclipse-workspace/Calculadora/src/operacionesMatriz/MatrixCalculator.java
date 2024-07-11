@@ -1,29 +1,24 @@
 package operacionesMatriz;
 
-import javax.swing.JFrame;
-
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
-/**
- * @author Roman Rey
- */
 public class MatrixCalculator extends JFrame {
 
-	private static final long serialVersionUID = -7580717973032844223L;
+    private static final long serialVersionUID = -7580717973032844223L;
 
-	private JTextField[][] textFieldMatriz1;
-	private JTextField[][] textFieldMatriz2;
-	private JTextField[][] textFieldMatrizResultado;
+    private JTextField[][] textFieldMatriz1;
+    private JTextField[][] textFieldMatriz2;
+    private JTextField[][] textFieldMatrizResultado;
+    private JComboBox<String> matriz1;
+    private JComboBox<String> matriz2;
+    private JComboBox<String> optionsOperations;
 
-	public MatrixCalculator(int x, int y, int width, int height) {
-		this.setBounds(x, y, width, height);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(null);
+    public MatrixCalculator(int x, int y, int width, int height) {
+        this.setBounds(x, y, width, height);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().setLayout(null);
 
 		JButton btnBack = new JButton("Volver");
 		btnBack.addActionListener(new ActionListener() {
@@ -69,100 +64,75 @@ public class MatrixCalculator extends JFrame {
 		getContentPane().add(lblMatriz2);
 
 		JButton btnIgual = new JButton("=");
-		btnIgual.setBounds(420, 141, 61, 29);
-		getContentPane().add(btnIgual);
+        btnIgual.setBounds(420, 141, 61, 29);
+        getContentPane().add(btnIgual);
 
-		JComboBox<String> optionsOperations = new JComboBox<String>();
-		optionsOperations.setBounds(167, 147, 115, 16);
-		getContentPane().add(optionsOperations);
-		optionsOperations.addItem("Suma (+)");
-		optionsOperations.addItem("Resta (-)");
-		optionsOperations.addItem("Multiplicacion (x)");
-		optionsOperations.addItem("Division (/)");
-		
-		JButton btnClean = new JButton("limpiar");
-		btnClean.setBounds(500, 260, 80, 29);
-		getContentPane().add(btnClean);
-	
-		matriz1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String seleccion = (String) matriz1.getSelectedItem();
-		        int filas = Character.getNumericValue(seleccion.charAt(0));
-		        int columnas = Character.getNumericValue(seleccion.charAt(2));
+        JButton btnClean = new JButton("clean");
+        btnClean.setBounds(500, 260, 80, 29);
+        getContentPane().add(btnClean);
 
-		        if (textFieldMatriz1 != null) {
-		            for (int i = 0; i < textFieldMatriz1.length; i++) {
-		                for (int j = 0; j < textFieldMatriz1[i].length; j++) {
-		                    getContentPane().remove(textFieldMatriz1[i][j]);
-		                }
-		            }
-		        }
+        optionsOperations = new JComboBox<String>();
+        optionsOperations.setBounds(167, 147, 115, 16);
+        getContentPane().add(optionsOperations);
+        optionsOperations.addItem("Suma (+)");
+        optionsOperations.addItem("Resta (-)");
+        optionsOperations.addItem("Multiplicacion (x)");
+        optionsOperations.addItem("Division (/)");
 
-		        textFieldMatriz1 = new JTextField[filas][columnas];
-		        int x = 70;
-		        int y = 100;
-		        int width = 30;
-		        int height = 30;
-		        for (int i = 0; i < filas; i++) {
-		            for (int j = 0; j < columnas; j++) {
-		                textFieldMatriz1[i][j] = new JTextField();
-		                textFieldMatriz1[i][j].setBounds(x + j * (width + 5), y + i * (height + 5), width, height);
-		                getContentPane().add(textFieldMatriz1[i][j]);
-		            }
-		        }
+        matriz1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textFieldMatriz1 = createMatrix(matriz1, textFieldMatriz1, 70, 100);
+            }
+        });
 
-		        	revalidate();
-		        	repaint();
-			}
-		});
+        matriz2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textFieldMatriz2 = createMatrix(matriz2, textFieldMatriz2, 300, 100);
+            }
+        });
 
-		matriz2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String seleccion = (String) matriz2.getSelectedItem();
-		        int filas = Character.getNumericValue(seleccion.charAt(0));
-		        int columnas = Character.getNumericValue(seleccion.charAt(2));
+        btnIgual.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CalculateCleanMatrizButton calculateMatrizButton = new CalculateCleanMatrizButton();
+                textFieldMatrizResultado = calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations);
+            }
+        });
 
-		        if (textFieldMatriz2 != null) {
-		        	for (int i = 0; i < textFieldMatriz2.length; i++) {
-		                for (int j = 0; j < textFieldMatriz2[i].length; j++) {
-		                	getContentPane().remove(textFieldMatriz2[i][j]);
-		                }
-		            }
-		        }
+        btnClean.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+    }
 
-		        textFieldMatriz2 = new JTextField[filas][columnas];
+    private JTextField[][] createMatrix(JComboBox<String> comboBox, JTextField[][] textFieldMatrix, int startX, int startY) {
+        String seleccion = (String) comboBox.getSelectedItem();
+        int filas = Character.getNumericValue(seleccion.charAt(0));
+        int columnas = Character.getNumericValue(seleccion.charAt(2));
 
-		        int x = 300;
-		        int y = 100;
-		        int width = 30;
-		        int height = 30;
-		        
-		        for (int i = 0; i < filas; i++) {
-		        	for (int j = 0; j < columnas; j++) {
-		                textFieldMatriz2[i][j] = new JTextField();
-		                textFieldMatriz2[i][j].setBounds(x + j * (width + 5), y + i * (height + 5), width, height);
-		                getContentPane().add(textFieldMatriz2[i][j]);
-		            }
-		        }
-		        	revalidate();
-		        	repaint();
-			}
-		});
+        if (textFieldMatrix != null) {
+            for (JTextField[] row : textFieldMatrix) {
+                for (JTextField field : row) {
+                    getContentPane().remove(field);
+                }
+            }
+        }
 
-		btnIgual.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CalculateCleanMatrizButton calculateMatrizButton = new CalculateCleanMatrizButton();
-				calculateMatrizButton.calculateButton(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this, optionsOperations);
-			}
-		});
-		btnClean.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CalculateCleanMatrizButton cleanScreen = new CalculateCleanMatrizButton();
-				cleanScreen.cleanMatriz(textFieldMatriz1, textFieldMatriz2, textFieldMatrizResultado, MatrixCalculator.this);
-				textFieldMatriz1 = null;
-				textFieldMatriz2 = null;
-				textFieldMatrizResultado = null;
-			}
-		});
-	}
+        textFieldMatrix = new JTextField[filas][columnas];
+        int width = 30;
+        int height = 30;
+
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                textFieldMatrix[i][j] = new JTextField();
+                textFieldMatrix[i][j].setBounds(startX + j * (width + 5), startY + i * (height + 5), width, height);
+                textFieldMatrix[i][j].setHorizontalAlignment(JTextField.RIGHT);
+                getContentPane().add(textFieldMatrix[i][j]);
+            }
+        }
+
+        revalidate();
+        repaint();
+        return textFieldMatrix;
+    }
 }
